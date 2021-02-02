@@ -17,14 +17,7 @@ app.get('/', cors(corsOptions), (req, res) => {
 		console.log("Please supply a Country! Defaulting to US.");
 		var country = "US";
 	}
-	if (req.query.date) {
-	var date = req.query.date;
-	} else {
-		console.log("Please supply a Date! Defaulting to today's date.");
-		var date = new Date();
-	}
 	googleTrends.dailyTrends({
-	  trendDate: new Date(date),
 	  geo: country,
 	}, function(err, results) {
 	  if (err) {
