@@ -5,7 +5,7 @@ const app = express()
 const port = 3000
 
 var corsOptions = {
-  origin: 'http://roamresearch.com',
+  origin: 'https://roamresearch.com',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 
