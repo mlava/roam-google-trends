@@ -1,12 +1,28 @@
 const googleTrends = require('./node_modules/google-trends-api');
 const express = require('express')
+var cors = require('cors')
 const app = express()
 const port = 3000
 
-app.get('/', (req, res) => {
-	var country = req.query.country;
-	var date = req.query.date;
+var corsOptions = {
+  origin: 'http://roamresearch.com',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
+app.get('/', cors(corsOptions), (req, res) => {
 	
+	if (req.query.country) {
+	var country = req.query.country;
+	} else {
+		console.log("Please supply a Country! Defaulting to US.");
+		var country = "US";
+	}
+	if (req.query.date) {
+	var date = req.query.date;
+	} else {
+		console.log("Please supply a Date! Defaulting to today's date.");
+		var date = new Date();
+	}
 	googleTrends.dailyTrends({
 	  trendDate: new Date(date),
 	  geo: country,
