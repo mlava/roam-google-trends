@@ -11,12 +11,16 @@ var corsOptions = {
 
 app.get('/', cors(corsOptions), (req, res) => {
 	
+	var mode = req.query.mode;
+	
 	if (req.query.country) {
 	var country = req.query.country;
 	} else {
 		console.log("Please supply a Country! Defaulting to US.");
 		var country = "US";
 	}
+	
+	if (mode == "DT") {
 	googleTrends.dailyTrends({
 	  geo: country,
 	}, function(err, results) {
@@ -26,6 +30,23 @@ app.get('/', cors(corsOptions), (req, res) => {
 		res.json(results);
 	  }
 	});
+	} else if (mode == "cat") {
+		if (req.query.category) {
+			var cat = req.query.category;
+		} else {
+			var cat = "all";
+		}
+		googleTrends.realTimeTrends({
+		geo: 'US',
+		category: cat,
+		}, function(err, results) {
+			if (err) {
+				console.log(err);
+			} else {
+				res.json(results);
+			} 
+		});
+	}
 })
 
 app.listen(port, () => {
