@@ -37,7 +37,7 @@ app.get('/', cors(corsOptions), (req, res) => {
 			var cat = "all";
 		}
 		googleTrends.realTimeTrends({
-		geo: 'US',
+		geo: country,
 		category: cat,
 		}, function(err, results) {
 			if (err) {
